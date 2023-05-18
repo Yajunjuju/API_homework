@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    #map {
+        height: 100%;
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<body>
+
+    <div id="map"></div>
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTJesAhlcudIdx5ex7NbJEh01b6uNZtLY&callback=initMap"></script>
+
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script>
+        const locations = [
+            { lat: 25.018634, lng: 121.537214 },
+            { lat: 25.015349, lng: 121.539351 },
+            { lat: 24.987987, lng: 121.575992 },
+            { lat: 24.968557, lng: 121.192194 },
+            { lat: 24.960656, lng: 121.205364 },
+            { lat: 25.042815, lng: 121.539485 },
+            { lat: 25.048557, lng: 121.516206 },
+            { lat: 25.062579, lng: 121.514513 },
+            { lat: 25.083297, lng: 121.561353 },
+            { lat: 25.051886, lng: 121.364873 }
+        ];
+
+        function initMap() {
+            const study = { lat: 25.043236386085614, lng: 121.52489643604237 };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 10,
+                center: study,
+            });
+
+            const img = "https://maps.google.com/mapfiles/ms/micons/blue.png";
+            const marker = new google.maps.Marker({
+                position: study,
+                map: map,
+                title: '台北商業大學',
+                icon: img
+            });
+
+            const infowindow = new google.maps.InfoWindow({
+                content: "<h1>這是我準備轉職的地方</h1>",
+                ariaLabel: "台北商業大學",
+            });
+
+            marker.addListener("click", () => {
+                infowindow.open({
+                    anchor: marker,
+                    map,
+                });
+            });
+
+            const markers = locations.map((location, i) => {
+                return new google.maps.Marker({
+                    position: location,
+                    label: { text: String(i + 1), color: "white" },
+                });
+            });
+
+            const markerCluster = new MarkerClusterer(map, markers, {
+                imagePath:
+                    "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+            });
+        }
+    </script>
+
+</body>
+
+</html>

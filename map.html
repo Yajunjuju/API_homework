@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <style>
+        #map {
+            height: 100%;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTJesAhlcudIdx5ex7NbJEh01b6uNZtLY&callback=initMap"></script>
+
+    <script>
+
+        // window.initMap = function () {
+        //     map = new google.maps.Map(document.getElementById('map'), {
+        //         center: { lat: -34.397, lng: 150.644 },
+        //         zoom: 8
+        //     });
+
+        // };
+
+        // Initialize and add the map
+        function initMap() {
+
+
+            // The location of Uluru
+            const study = { lat: 25.043236386085614, lng: 121.52489643604237 };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 8,
+                center: study,
+            });
+            const img ="./img/placeholder.png"
+            const marker = new google.maps.Marker({
+                position: study,
+                map: map,
+                title: '台北商業大學',
+                icon:img
+            });
+
+            const infowindow = new google.maps.InfoWindow({
+                content: "<h1>這是我準備轉職的地方<h1>",
+                ariaLabel: "台北商業大學",
+            });
+            
+
+            marker.addListener("click", () => {
+                infowindow.open({
+                    anchor: marker,
+                    map,
+                });
+            });
+        
+        }
+
+        window.initMap = initMap;
+    </script>
+</body>
+
+</html>
